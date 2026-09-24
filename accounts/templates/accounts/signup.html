@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="mx-auto" style="max-width: 400px">
+    <h1>Sign up</h1>
+    <div class="mb-3">
+        <label class="form-label">I am a</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="seeker" value="seeker" checked>
+            <label class="form-check-label" for="seeker">Job seeker</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="role" id="recruiter" value="recruiter">
+            <label class="form-check-label" for="recruiter">Recruiter</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="name">Full name</label>
+        <input class="form-control" type="text" id="name" name="name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password">
+    </div>
+    <button class="btn btn-primary w-100" type="button">Create account</button>
+    <p class="mt-3">Already have an account? <a href="{% url 'accounts.login' %}">Log in</a></p>
+</div>
+{% endblock content %}

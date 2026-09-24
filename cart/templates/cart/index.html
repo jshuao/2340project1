@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Cart</h1>
+
+<ul class="list-group mb-3">
+    {% for job in template_data.jobs %}
+    <li class="list-group-item d-flex align-items-center gap-3">
+        <input class="form-check-input" type="checkbox" name="selected" value="{{ job.id }}" checked>
+        <div class="flex-grow-1">
+            <strong>{{ job.title }}</strong>
+            <div class="text-muted small">{{ job.company }} · {{ job.location }} · {{ job.salary }}</div>
+        </div>
+        <button class="btn btn-sm btn-outline-danger" type="button">Remove</button>
+    </li>
+    {% endfor %}
+</ul>
+
+<button class="btn btn-outline-dark" type="button">Compare</button>
+<button class="btn btn-primary" type="button">Apply to selected</button>
+{% endblock content %}

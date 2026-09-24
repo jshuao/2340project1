@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Post a job</h1>
+
+<div style="max-width: 600px">
+    <div class="mb-3">
+        <label class="form-label" for="title">Job title</label>
+        <input class="form-control" type="text" id="title" name="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="salary">Salary range</label>
+        <input class="form-control" type="text" id="salary" name="salary">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="work_mode">Work mode</label>
+        <select class="form-select" id="work_mode" name="work_mode">
+            <option>Remote</option>
+            <option>Hybrid</option>
+            <option>On-site</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="skills">Skills</label>
+        <input class="form-control" type="text" id="skills" name="skills" placeholder="Django, Postgres">
+    </div>
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="visa" name="sponsors_visa">
+        <label class="form-check-label" for="visa">Visa sponsorship offered</label>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="5"></textarea>
+    </div>
+    <button class="btn btn-primary" type="button">Publish job</button>
+</div>
+{% endblock content %}

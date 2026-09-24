@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Job map</h1>
+
+<div class="map-placeholder rounded d-flex align-items-center justify-content-center mb-3">Map goes here</div>
+
+<div class="row">
+    {% for job in template_data.jobs %}
+    <div class="col-6 col-md-3 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="card-title"><a href="{% url 'jobs.show' id=job.id %}">{{ job.title }}</a></h6>
+                <p class="card-text text-muted small">{{ job.location }} · {{ job.salary }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

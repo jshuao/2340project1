@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Candidate name</h1>
+<p class="text-muted">Backend · 4 yrs experience · Applied to Backend Engineer</p>
+
+<div class="row">
+    <div class="col-md-8">
+        <h5>Note</h5>
+        <p>Candidate's note goes here.</p>
+
+        <h5>Experience</h5>
+        <p>Experience goes here.</p>
+
+        <h5>Education</h5>
+        <p>Education goes here.</p>
+    </div>
+    <div class="col-md-4">
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" type="button">Move to interview</button>
+            <button class="btn btn-outline-dark" type="button">Keep in review</button>
+            <button class="btn btn-outline-danger" type="button">Reject</button>
+        </div>
+        <label class="form-label" for="internal_note">Internal note</label>
+        <textarea class="form-control" id="internal_note" name="internal_note" rows="3"></textarea>
+    </div>
+</div>
+{% endblock content %}

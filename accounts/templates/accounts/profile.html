@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Name Lastname</h1>
+<p class="text-muted">Backend engineer · Atlanta, GA</p>
+
+<h5>Skills</h5>
+<p>
+    <span class="badge text-bg-secondary">Python</span>
+    <span class="badge text-bg-secondary">Django</span>
+    <span class="badge text-bg-secondary">Postgres</span>
+</p>
+
+<h5>My applications</h5>
+<table class="table">
+    <thead>
+        <tr><th>Job</th><th>Company</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        {% for job in template_data.jobs %}
+        <tr>
+            <td><a href="{% url 'jobs.show' id=job.id %}">{{ job.title }}</a></td>
+            <td>{{ job.company }}</td>
+            <td>Applied</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

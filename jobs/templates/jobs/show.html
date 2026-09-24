@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% with job=template_data.job %}
+<h1>{{ job.title }}</h1>
+<p class="text-muted">{{ job.company }} · {{ job.location }} · {{ job.salary }}</p>
+
+<div class="row">
+    <div class="col-md-8">
+        <h5>About the role</h5>
+        <p>Job description goes here.</p>
+
+        <h5>Skills</h5>
+        <p>
+            <span class="badge text-bg-secondary">Python</span>
+            <span class="badge text-bg-secondary">Django</span>
+            <span class="badge text-bg-secondary">Postgres</span>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <div class="map-placeholder rounded d-flex align-items-center justify-content-center">Map</div>
+    </div>
+</div>
+
+<button class="btn btn-primary" type="button">Apply</button>
+<button class="btn btn-outline-dark" type="button">Add to cart</button>
+{% endwith %}
+{% endblock content %}

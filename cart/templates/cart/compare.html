@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Compare</h1>
+
+<div class="table-responsive">
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            {% for job in template_data.jobs %}
+            <th>{{ job.title }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>Pay</th>
+            {% for job in template_data.jobs %}<td>{{ job.salary }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th>Location</th>
+            {% for job in template_data.jobs %}<td>{{ job.location }}</td>{% endfor %}
+        </tr>
+        <tr>
+            <th></th>
+            {% for job in template_data.jobs %}
+            <td><button class="btn btn-sm btn-primary" type="button">Apply</button></td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<a href="{% url 'cart.index' %}">Back to cart</a>
+{% endblock content %}
