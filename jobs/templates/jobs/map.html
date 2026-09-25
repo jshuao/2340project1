@@ -10,7 +10,7 @@
         <div class="card h-100">
             <div class="card-body">
                 <h6 class="card-title"><a href="{% url 'jobs.show' id=job.id %}">{{ job.title }}</a></h6>
-                <p class="card-text text-muted small">{{ job.location }} · {{ job.salary }}</p>
+                <p class="card-text text-muted small">{{ job.city }} · {{ job.city }} · ${{ job.salary_min }}K-{{ job.salary_max }}K</p>
             </div>
         </div>
     </div>

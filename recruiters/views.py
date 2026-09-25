@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from jobs.views import jobs
+from jobs.models import Job
 
 # Create your views here.
 
@@ -7,7 +7,7 @@ from jobs.views import jobs
 def dashboard(request):
     template_data = {}
     template_data['title'] = 'Recruiter dashboard'
-    template_data['jobs'] = jobs
+    template_data['jobs'] = Job.objects.all()
     return render(request, 'recruiters/dashboard.html', {'template_data': template_data})
 
 

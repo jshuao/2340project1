@@ -1,4 +1,4 @@
-from jobs.views import jobs
+from jobs.models import Job
 from django.shortcuts import render
 from .forms import CustomUserCreationForm, CustomErrorList
 from django.contrib.auth import login as auth_login, authenticate, logout as auth_logout
@@ -52,5 +52,5 @@ def signup(request):
 def profile(request):
     template_data = {}
     template_data['title'] = 'Profile'
-    template_data['jobs'] = jobs[:3]
+    template_data['jobs'] = Job.objects.all()
     return render(request, 'accounts/profile.html', {'template_data': template_data})
