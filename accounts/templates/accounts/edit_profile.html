@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Edit Profile</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ template_data.form.non_field_errors }}
+  {% for field in template_data.form %}
+    <div class="mb-3">
+      <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {{ field.errors }}
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">Save</button>
+  <a class="btn btn-link" href="{% url 'accounts.profile' %}">Cancel</a>
+</form>
+{% endblock content %}

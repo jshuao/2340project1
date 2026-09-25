@@ -1,6 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.utils import ErrorList
 from django.utils.safestring import mark_safe
+from django import forms
+from .models import Profile
+
 class CustomErrorList(ErrorList):
     def __str__(self):
         if not self:
@@ -15,3 +18,14 @@ class CustomUserCreationForm(UserCreationForm):
             self.fields[fieldname].widget.attrs.update(
                 {'class': 'form-control'}
             )
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['headline', 'skills', 'education', 'experience', 'links']
+        widgets = {
+            'headline': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Backend engineer · Atlanta, GA'}),
+            'skills': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Python, Django, Postgres'}),
+            'education': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'experience': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'links': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'https://github.com/username'}),
+        }
