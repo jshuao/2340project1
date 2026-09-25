@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from .forms import CustomErrorList, ProfileForm
+from .forms import CustomErrorList, CustomUserCreationForm, ProfileForm
 from .models import Profile
 
 @login_required
@@ -38,15 +38,42 @@ def show_profile(request, id):
 
 def login(request):
     template_data = {}
-    template_data['title'] = 'Log in'
-    return render(request, 'accounts/login.html', {'template_data': template_data})
-
-
+    template_data['title'] = 'Login'
+    if request.method == 'GET':
+        return render(request, 'accounts/login.html',
+            {'template_data': template_data})
+    elif request.method == 'POST':
+        user = authenticate(
+            request,
+            username = request.POST['username'],
+            password = request.POST['password']
+        )
+        if user is None:
+            template_data['error'] = 'The username or password is incorrect.'
+            return render(request, 'accounts/login.html',
+                {'template_data': template_data})
+        else:
+            auth_login(request, user)
+            return redirect('home.index')
 def signup(request):
     template_data = {}
-    template_data['title'] = 'Sign up'
-    return render(request, 'accounts/signup.html', {'template_data': template_data})
-
+    template_data['title'] = 'Sign Up'
+    if request.method == 'GET':
+        template_data['form'] = CustomUserCreationForm()
+        return render(request, 'accounts/signup.html',
+            {'template_data': template_data})
+    elif request.method == 'POST':
+        form = CustomUserCreationForm(request.POST, error_class=CustomErrorList)
+        if form.is_valid():
+            user = form.save()
+            role = request.POST.get('role', Profile.SEEKER)
+            if role not in (Profile.SEEKER, Profile.RECRUITER):
+                role = Profile.SEEKER
+            Profile.objects.create(user=user, role=role)
+            return redirect('accounts.login')
+        else:
+            template_data['form'] = form
+            return render(request, 'accounts/signup.html', {'template_data': template_data})
 
 def profile(request):
     template_data = {}
