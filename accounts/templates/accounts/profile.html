@@ -1,28 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Name Lastname</h1>
-<p class="text-muted">Backend engineer · Atlanta, GA</p>
+{% with profile=template_data.profile %}
+<div class="d-flex justify-content-between align-items-start">
+    <div>
+        <h1>{{ profile.user.username }}</h1>
+        <p class="text-muted">{{ profile.headline|default:"No headline yet" }}</p>
+    </div>
+    {% if profile.user == user %}
+    <a class="btn btn-primary" href="{% url 'accounts.edit_profile' %}">Edit profile</a>
+    {% endif %}
+</div>
 
 <h5>Skills</h5>
 <p>
-    <span class="badge text-bg-secondary">Python</span>
-    <span class="badge text-bg-secondary">Django</span>
-    <span class="badge text-bg-secondary">Postgres</span>
+    {% for skill in profile.skill_list %}
+    <span class="badge text-bg-secondary">{{ skill }}</span>
+    {% empty %}
+    <span class="text-muted">No skills added yet.</span>
+    {% endfor %}
 </p>
 
-<h5>My applications</h5>
-<table class="table">
-    <thead>
-        <tr><th>Job</th><th>Company</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-        {% for job in template_data.jobs %}
-        <tr>
-            <td><a href="{% url 'jobs.show' id=job.id %}">{{ job.title }}</a></td>
-            <td>{{ job.company }}</td>
-            <td>Applied</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<h5>Education</h5>
+<p>{{ profile.education|linebreaksbr|default:"No education added yet." }}</p>
+
+<h5>Work experience</h5>
+<p>{{ profile.experience|linebreaksbr|default:"No work experience added yet." }}</p>
+
+<h5>Links</h5>
+<ul>
+    {% for link in profile.link_list %}
+    <li><a href="{{ link }}" target="_blank" rel="noopener">{{ link }}</a></li>
+    {% empty %}
+    <li class="text-muted">No links added yet.</li>
+    {% endfor %}
+</ul>
+{% endwith %}
 {% endblock content %}

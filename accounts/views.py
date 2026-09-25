@@ -1,7 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
-from jobs.views import jobs
+from .forms import CustomErrorList, ProfileForm
+from .models import Profile
 
+@login_required
+def profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    template_data = {}
+    template_data['title'] = 'My Profile'
+    template_data['profile'] = profile
+    return render(request, 'accounts/profile.html', {'template_data': template_data})
+
+@login_required
+def edit_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    template_data = {}
+    template_data['title'] = 'Edit Profile'
+    if request.method == 'GET':
+        template_data['form'] = ProfileForm(instance=profile)
+        return render(request, 'accounts/edit_profile.html', {'template_data': template_data})
+    elif request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile, error_class=CustomErrorList)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts.profile')
+        else:
+            template_data['form'] = form
+            return render(request, 'accounts/edit_profile.html', {'template_data': template_data})
+
+def show_profile(request, id):
+    profile = get_object_or_404(Profile, id=id)
+    template_data = {}
+    template_data['title'] = profile.user.username
+    template_data['profile'] = profile
+    return render(request, 'accounts/profile.html', {'template_data': template_data})
 
 def login(request):
     template_data = {}
@@ -18,5 +51,4 @@ def signup(request):
 def profile(request):
     template_data = {}
     template_data['title'] = 'Profile'
-    template_data['jobs'] = jobs[:3]
     return render(request, 'accounts/profile.html', {'template_data': template_data})

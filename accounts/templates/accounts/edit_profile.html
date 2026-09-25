@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Edit profile</h1>
+
+<form method="post" style="max-width: 600px">
+    {% csrf_token %}
+    {% for field in template_data.form %}
+    <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">Save profile</button>
+    <a class="btn btn-outline-dark" href="{% url 'accounts.profile' %}">Cancel</a>
+</form>
+{% endblock content %}
